@@ -1,0 +1,255 @@
+﻿@model IEnumerable<SQLServerOrders2.Models.Order>
+
+@{
+    /**/
+
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+
+    <!-- Latest compiled JavaScript -->
+
+
+    <script src="~/Content/orders.js"></script>
+
+    <script>
+
+
+    </script>
+
+    <style>
+
+        th {
+            font-family: cursive;
+            text-decoration: dotted;
+            color: plum;
+            font-size: 18px;
+            outline-offset: 4px;
+            outline-color: blue;
+            outline-width: 3px;
+        }
+
+        td {
+        }
+
+        .my-content {
+            background: white;
+            border: 22px;
+        }
+    </style>
+
+    <title>Index</title>
+
+</head>
+<body>
+
+
+
+    <!-- from layout-->
+    <div class="navbar navbar-light navbar-fixed-top" style="background-color: mistyrose">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Demo App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Contacts", "Index", "Contacts")</li>
+                    <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>   <img src="~/Content/images/mnitlogo.png" style="margin-left: 25px;" /></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container body-content" style="background: white url( '../../Content/images/create.jpg') center; margin-top:6%; padding-top:20px;">
+
+
+        <div id="lights" class="col-md-offset-1">
+
+
+            <div id="light5" style="width: 30px; height: 30px; border-radius: 50%; background: white; margin: 15px 15px 15px 15px;  display: inline-block;">
+            </div>
+            <div id="light6" style="width: 30px; height: 30px; border-radius: 50%; background: white; margin: 15px 15px 55px 165px; display: inline-block;">
+            </div>
+            <div id="light7" style="width: 30px; height: 30px; border-radius: 50%; background: white; margin: 15px 15px 40px 265px; display: inline-block;">
+            </div>
+
+            <div id="light8" style="width: 30px; height: 30px; border-radius: 50%; background: white; margin: 15px 15px 32px 325px; display: inline-block;">
+            </div>
+
+        </div>
+
+
+        <div id="error"><h3 style="color: red; margin: auto;">@ViewBag.Error</h3>       </div>
+        <div id="ajaxError"></div>
+
+
+
+        <div id="search" style="background: white;" class="col-md-offset-8 col-md-3 input-group">
+            <form action="@Url.Action("Index", "Orders")" method="post">
+              
+                <div class="col-md-8" style="padding-right: 0">
+                    <input id="search-order" name="searchOrder" type="text" placeholder="search by description" class="form-control" style="margin-right: 0; padding-right: 0;" />
+                </div>
+                <div class="col-md-4" style="padding-left: 0;">
+                    <button type="submit" class="btn glyphicon glyphicon-search" style="margin-left: 0; padding-left: 0;"></button>
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+
+
+
+
+        <div class="my-content col-md-offset-1 col-md-10">
+            <div style=" margin: 25px;">
+                <p style=" font-size: 22px; text-align: center; padding-top: 8px; ">
+                    @Html.ActionLink("Create New Order", "Order") | <button type="button" onclick="createOrder()" class="btn btn-info">Add Order</button>
+                </p>
+
+
+
+                <div id="orders-table">
+                    <table class="table  table-striped">
+                        <tr>
+                            <th>
+                                <a href="@Url.Action("SortOrders", "Orders", new {sortBy = "orderid" })" style="color: plum">
+                                    @Html.DisplayNameFor(model => model.OrderId)
+                                </a>
+                            </th>
+                            <th>
+
+                                @Html.DisplayNameFor(model => model.Contact.FullName)
+                            </th>
+
+                            <th>
+                                <a href="@Url.Action("SortOrders", "Orders", new {sortBy = "orderdate" })" style="color: plum">
+                                    @Html.DisplayNameFor(model => model.OrderDate)
+                                </a>
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderDescription)
+                            </th>
+                            <th>
+                                <a href="@Url.Action("SortOrders", "Orders", new {sortBy = "orderamount" })" style="color: plum">
+                                    @Html.DisplayNameFor(model => model.OrderAmount)
+                                </a>
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Contact.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderAmount)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.OrderId }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderId })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+
+                <!--------------------------------------------------------CREATE ORDER DIV  --------------------------------------------------->
+                <div id="create-order-div" style="display: none">
+                    <form class="form-horizontal" role="form" id="add-form">
+
+                        <select id="contact-drop-down"></select>
+
+
+
+                        <div class="form-group">
+                            <label for="add-order-date" class="col-md-4 control-label">
+                                Order Date:
+                            </label>
+
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" id="add-order-date" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="add-order-description" class="col-md-4 control-label">
+                                Order Description:
+                            </label>
+
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="add-order-description" placeholder="Order Description" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="add-order-amount" class="col-md-4 control-label">
+                                Order Amount: $
+                            </label>
+
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" id="add-order-amount" placeholder="Order Amount" />
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="submitOrder()" id="submit-contact-button" class="btn btn-default">Create</button>
+                    </form>
+                </div>
+                <!--------------------------------------------------------END OF CREATE ORDER DIV  --------------------------------------------------->
+
+
+
+            </div>
+        </div>
+
+
+
+</body>
+</html>

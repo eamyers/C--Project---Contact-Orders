@@ -1,0 +1,109 @@
+﻿@model SQLServerOrders2.Models.Contact
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Contact</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateOfBirth)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AllowContactByPhone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AllowContactByPhone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Role)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Role)
+            </dd>
+
+        </dl>
+
+        <table class="table-bordered col-md-offset-1" style="margin-bottom: 24px;">
+            <tr>
+                <th>Order No. </th>
+                <th>Date</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Orders)
+    {
+
+        <tr>
+            <td width="200"> @Html.DisplayFor(model => item.OrderId)</td>
+            <td width="200">@Html.DisplayFor(model => item.OrderDate)</td>
+
+            <td width="200"><span style="color: orchid"> @Html.DisplayFor(model => item.OrderDescription)  </span></td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Orders", new { id = item.OrderId }, null) |
+                @Html.ActionLink("Details", "Details", "Orders", new { id = item.OrderId }, null) |
+                @Html.ActionLink("Delete", "Delete", "Orders", new { id = item.OrderId }, null)
+            </td>
+        </tr>
+
+}
+
+        </table>
+
+
+
+
+
+
+
+
+        </div>
+    <p>
+        @Html.ActionLink("Edit Contact Info", "Edit", new { id = Model.ContactId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

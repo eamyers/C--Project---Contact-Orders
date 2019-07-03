@@ -1,0 +1,299 @@
+﻿@model IEnumerable<SQLServerOrders2.Models.Contact>
+
+
+
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+
+
+    <!-- Latest compiled JavaScript -->
+
+
+    <script src="~/Content/contacts.js"></script>
+
+    <script>
+
+    </script>
+
+    <style>
+
+        th {
+            font-family: cursive;
+            text-decoration: dotted;
+            color: plum;
+            font-size: 18px;
+            outline-offset: 4px;
+            outline-color: blue;
+            outline-width: 3px;
+        }
+
+        td {
+        }
+
+        .my-content {
+            background: white;
+            border: 22px;
+        }
+    </style>
+
+
+
+    <title>Index</title>
+</head>
+<body>
+
+    <!--  from layout-->
+    <div class="navbar navbar-light navbar-fixed-top" style="background-color: mistyrose">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Demo App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Contacts", "Index", "Contacts")</li>
+                    <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>   <img src="~/Content/images/mnitlogo.png" style="margin-left: 25px;" /></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- end of layout-->
+    <div class="container body-content" style="background: white url( '../../Content/images/create.jpg') center; margin-top:6%; padding-top:20px;">
+
+
+
+        <div id="lights" class="col-md-offset-1">
+
+
+            <div id="light1" style="width: 30px; height: 30px; border-radius: 50%; background: white; margin: 15px 15px 15px 15px;  display: inline-block;">
+            </div>
+            <div id="light2" style="width: 30px; height: 30px; border-radius: 50%; background: white; margin: 15px 15px 55px 165px; display: inline-block;">
+            </div>
+            <div id="light3" style="width: 30px; height: 30px; border-radius: 50%; background: white; margin: 15px 15px 40px 265px; display: inline-block;">
+            </div>
+
+            <div id="light4" style="width: 30px; height: 30px; border-radius: 50%; background: white; margin: 15px 15px 32px 325px; display: inline-block;">
+            </div>
+
+        </div>
+        <!--    main content-->
+        <!-- errors and search ---------------------------------------------------------------------------------------------------->
+        <div id="error"><h3 style="color: red; margin: auto;">@ViewBag.Error</h3>       </div>
+        <div id="search-contacts" class="col-md-offset-8 col-md-4 " style="margin-bottom: 20px;">
+
+            @using (Html.BeginForm())
+    {
+            <div class="input-group">
+                @Html.TextBox("search", null, new { @class = "form-control", @placeholder = "Search last name" })
+
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+
+            </div>
+
+}
+            
+        </div>
+
+
+
+        <div class="my-content col-md-offset-1 col-md-10">
+            <div style=" margin: 25px;">
+                <p style=" font-size: 22px; text-align: center; padding-top: 8px; ">
+                    @Html.ActionLink("Create New Contact", "Create") | <button type="button" onclick="createContact()" class="btn btn-info">Add Contact</button>
+                </p>
+
+
+                <div id="contacts-table">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+
+                                @Html.DisplayNameFor(model => model.FirstName)
+
+                            </th>
+                            <th>
+                                <a href="@Url.Action("SortContacts", "Contacts", new {sortBy = "lastname" })" style="color: plum">
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </a>
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateOfBirth)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AllowContactByPhone)
+                            </th>
+                            <th>
+                                <a href="@Url.Action("SortContacts", "Contacts", new {sortBy = "createddate" })" style=" color: plum">
+                                    @Html.DisplayNameFor(model => model.CreatedDate)
+                                </a>
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Role)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                       
+
+
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                       
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateOfBirth)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AllowContactByPhone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Role)
+                                    </td>
+                                    <td>
+
+                                        @Html.ActionLink("Add Order", "Create", "Orders", new { id = item.ContactId }, null) |
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ContactId }) |
+
+                                        <button type="button" onclick="showDetails(@item.ContactId)" class="btn btn-info contact-detail-button">Details</button>
+
+
+                                        @Html.ActionLink("Details", "Details", new { id = item.ContactId }) |
+
+
+
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ContactId })
+                                    </td>
+                                </tr>
+
+                            }
+                        
+
+                    </table>
+
+
+
+                </div>
+
+
+
+
+                <!--------------------------------------------------------CREATE CONTACT DIV  --------------------------------------------------->
+                <div id="create-contact-div" style="display: none">
+                    <form class="form-horizontal" role="form" id="add-form">
+
+
+
+
+                        <div class="form-group">
+                            <label for="add-first-name" class="col-md-4 control-label">
+                                First Name:
+                            </label>
+
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="add-first-name" placeholder="First Name" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="add-last-name" class="col-md-4 control-label">
+                                Last Name:
+                            </label>
+
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="add-last-name" placeholder="Last Name" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="add-dob" class="col-md-4 control-label">
+                                Date Of Birth:
+                            </label>
+
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" id="add-dob" placeholder="Date Of Birth" />
+                            </div>
+                        </div>
+
+                        <button type="button" id="add-contact-button" class="btn btn-default">Create</button>
+                    </form>
+                </div>
+                <!--------------------------------------------------------END OF CREATE CONTACT DIV  --------------------------------------------------->
+                <!--                                    CONTACTS-DETAILS-DIV                             -->
+
+
+
+                <div id="contact-details-div" class="my-content col-md-12" style="display: none;">
+                    <!--Outer div for button outside of ajax append-->
+                    <div id="contact-details-col-1" class="col-md-4">
+
+
+
+
+                    </div>
+                    <div id="contact-details-col-2" class="col-md-6">
+
+
+
+                    </div>
+                    <button type="button" class="btn btn-info contact-detail-button" onclick="showTable()">Details</button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- footer-->
+        <hr />
+        <footer class="col-md-12">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+
+        <!-- end of footer-->
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

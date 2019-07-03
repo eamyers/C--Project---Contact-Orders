@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SQLServerOrders2</name>
+    </assembly>
+    <members>
+        <member name="M:SQLServerOrders2.BLL.ContactsServiceLayerImpl.GetSortedContacts(System.String)">
+            <summary>
+            Validation on if sortby is not needed - dal switch statement handles via default
+            </summary>
+            <param name="sortBy"></param>
+            <returns>sortedlist</returns>
+        </member>
+        <member name="M:SQLServerOrders2.BLL.OrdersServiceLayerImpl.getAllOrders">
+            <summary>
+            
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SQLServerOrders2.Controllers.ContactsController">
+            <summary>
+            Controller returns logical views.
+            </summary>
+        </member>
+        <member name="M:SQLServerOrders2.Controllers.ContactsController.#ctor">
+            <summary>
+            Controller constructor uses instantiated service layer impl- needs DI
+            </summary>
+        </member>
+        <member name="M:SQLServerOrders2.Controllers.ContactsController.Index(System.String)">
+            <summary>
+            Returns index view with contact list and possibility to search.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SQLServerOrders2.Controllers.ContactsController.SortContacts(System.String)">
+            <summary>
+            Pass table header via url action to bll->dal for sorting
+            DAL holds switch statement for header title parameters.
+            </summary>
+            <param name="sortBy">lastname, createddate</param>
+            <returns>descending sorted list</returns>
+        </member>
+        <member name="M:SQLServerOrders2.Controllers.ContactsController.Details(System.Int32)">
+            <summary>
+            Returns 1 contact-  GET contacts/details/id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SQLServerOrders2.Controllers.ContactsController.Create">
+            <summary>
+            Returns create view with empty contact.
+            No bll or dal.
+            GET: Contacts/Create
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SQLServerOrders2.Controllers.ContactsController.Create(SQLServerOrders2.Models.Contact)">
+            <summary>
+            Creates new contact from contact view form 
+            POST: Contacts/Create
+            Binding protects from overposting
+            </summary>
+            <param name="contact">contact-form binding</param>
+            <returns>redirects to index or returns create view if invalid</returns>
+        </member>
+        <member name="M:SQLServerOrders2.Controllers.ContactsController.Edit(System.Int32)">
+            <summary>
+            GET: Contacts/Edit/5
+            </summary>
+            <param name="id">Gets edit page with contact model from db</param>
+            <returns></returns>
+        </member>
+        <member name="M:SQLServerOrders2.DAL.ContactsDataAccessLayerImpl.deleteContact(SQLServerOrders2.Models.Contact)">
+            <summary>
+            breaks parameter pattern b/c service layer retreived contact during check
+            
+            </summary>
+            <param name="contact"></param>
+        </member>
+        <member name="M:SQLServerOrders2.DAL.ContactsDataAccessLayerImpl.getContact(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
